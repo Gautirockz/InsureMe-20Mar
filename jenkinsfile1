@@ -32,13 +32,22 @@ pipeline {
         sh 'docker build -t saigowtham2605/insureme:1.0 .'
             }
     }
-    stage('DockerLogin') {
-      steps {
-        withCredentials([usernamePassword(credentialsId: 'Docker-Hub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-        sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-}
-            }
+stage('Docker Login') {
+  steps {
+    withCredentials([
+      usernamePassword(
+        credentialsId: 'dockercreds',      
+        passwordVariable: 'DOCKER_PASS',
+        usernameVariable: 'DOCKER_USER'
+      )
+    ]) {
+      sh '''
+        echo " Logging in to Docker Hub..."
+        echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+      '''
     }
+  }
+}
 
     stage('Push Image to DockerHub') {
       steps {
