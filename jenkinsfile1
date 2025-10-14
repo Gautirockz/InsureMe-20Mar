@@ -10,7 +10,7 @@ pipeline {
     stage('CheckOut') {
       steps {
         echo 'Checkout the source code from GitHub'
-        git branch: 'main', url: 'https://github.com/devopscbabu/InsureProject-Dec3Batch.git'
+        git branch: 'main', url: 'https://github.com/Gautirockz/InsureMe-20Mar.git'
             }
     }
     
@@ -29,7 +29,7 @@ pipeline {
     
     stage('Docker Image Creation') {
       steps {
-        sh 'docker build -tsaigowtham2605/insureme:1.0 .'
+        sh 'docker build -t saigowtham2605/insureme:1.0 .'
             }
     }
     stage('DockerLogin') {
