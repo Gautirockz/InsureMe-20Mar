@@ -56,7 +56,8 @@ stage('Docker Login') {
     }
     stage('Deploy Application using Ansible') {
       steps {
-        ansiblePlaybook credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'deploy.yml'
+        
+ansiblePlaybook become: true, credentialsId: 'ansiblecred1', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'deploy.yml', vaultTmpPath: ''
             }
     }
 
